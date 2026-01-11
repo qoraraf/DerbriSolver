@@ -1,0 +1,5 @@
+{
+  "name": "DebriSolver CDM Triage",
+  "description": "A mission-critical space debris triage suite for analyzing Conjunction Data Messages (CDM). Features analytic gates, Monte Carlo collision probability estimation, and encounter plane visualization.",
+  "requestFramePermissions": []
+}

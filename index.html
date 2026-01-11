@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DebriSolver CDM Triage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              space: {
+                950: '#020617', 
+                900: '#0f172a', 
+                800: '#1e293b', 
+                700: '#94a3b8', 
+                600: '#475569', 
+                100: '#f1f5f9', 
+              },
+              triage: {
+                ok: '#10b981', 
+                warn: '#f59e0b', 
+                action: '#f43f5e', 
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'radar': 'radar-spin 4s linear infinite',
+              'glimmer': 'glimmer 10s ease-in-out infinite',
+            },
+            keyframes: {
+              'radar-spin': {
+                'from': { transform: 'rotate(0deg)' },
+                'to': { transform: 'rotate(360deg)' },
+              },
+              'glimmer': {
+                '0%, 100%': { opacity: 0.3 },
+                '50%': { opacity: 0.6 },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #020617; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+      .starfield {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        overflow: hidden; z-index: -1;
+      }
+      .star {
+        position: absolute; background: white; border-radius: 50%;
+        opacity: 0.5; animation: twinkle var(--duration) infinite;
+      }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .cyber-border {
+        position: relative;
+      }
+      .cyber-border::before {
+        content: ''; position: absolute; top: -1px; left: -1px; width: 20px; height: 20px;
+        border-top: 2px solid #6366f1; border-left: 2px solid #6366f1; pointer-events: none;
+      }
+      .glow-text-indigo { text-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+      .glow-text-rose { text-shadow: 0 0 10px rgba(244, 63, 94, 0.5); }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "d3": "https://esm.sh/d3@^7.9.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "dexie": "https://esm.sh/dexie@4.0.1"
+  }
+}
+</script>
+</head>
+  <body class="text-space-100 antialiased overflow-hidden selection:bg-indigo-500 selection:text-white">
+    <div class="starfield" id="stars"></div>
+    <div id="root"></div>
+    <script>
+      const starCount = 100;
+      const stars = document.getElementById('stars');
+      for(let i=0; i<starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        stars.appendChild(star);
+      }
+    </script>
+  </body>
+</html>
